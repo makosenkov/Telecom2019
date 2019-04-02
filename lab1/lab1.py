@@ -36,11 +36,11 @@ if __name__ == '__main__':
     # график синусоидального сигнала
     get_plot(x=t[:lim], y=signal[:lim], x_label='Time',
              y_label='Amplitude', title='Wave signal',
-             show=False, save=False)
+             show=True, save=False)
     # спектр синусоидального сигнала
     get_plot(x=fft_freq[:lim], y=sig_fft[:lim], x_label='Frequency',
              y_label='Amplitude', title='Wave spectrum',
-             show=False, save=False)
+             show=True, save=False)
     # график импульсного сигнала
     get_plot(x=t[:lim], y=signal_imp[:lim], x_label='Time',
              y_label='Amplitude', title='Impulse signal',
