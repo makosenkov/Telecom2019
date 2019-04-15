@@ -47,13 +47,13 @@ if __name__ == '__main__':
     fs = 1000
     number = 2048
     t = np.arange(0, number / fs, 1 / fs)
-    freq = 20
+    freq_sin = 20
+    freq_imp = 30
+    freq_saw = 40
     amplitude = 2
-    mean = 0
-    std = 0.8
-    sig_array = [sin_signal(t, freq, amplitude),
-                 imp_signal(t, freq, amplitude),
-                 triangle_signal(t, freq, amplitude)]
+    sig_array = [sin_signal(t, freq_sin, amplitude),
+                 imp_signal(t, freq_imp, amplitude),
+                 triangle_signal(t, freq_saw, amplitude)]
     for input_signal in sig_array:
         sig_fft, fft_freq, lim = get_fft_signal(number, fs, input_signal)
         # график сигнала
@@ -63,9 +63,9 @@ if __name__ == '__main__':
         # график спектра сигнала
         get_plot(x=fft_freq[:lim], y=sig_fft[:lim], x_label='Frequency',
                  y_label='Amplitude', title='Spectrum plot',
-                 show=False, save=False)
+                 show=True, save=False)
         # добавляем шум
-        noise = np.random.normal(mean, std, size=number)
+        noise = 2 * np.random.random_sample(input_signal.size, ) - 1
         sig_with_noise = input_signal + noise
         get_plot(x=t[:lim], y=sig_with_noise[:lim], x_label='Time',
                  y_label='Amplitude', title='Noise plot',
@@ -75,4 +75,9 @@ if __name__ == '__main__':
         filtered = signal.filtfilt(b, a, sig_with_noise)
         get_plot(x=t[:lim], y=filtered[:lim], x_label='Time',
                  y_label='Amplitude', title='Filtered signal',
-                 show=True, save=False)
+                 show=False, save=False)
+        #спектр отфильтрованного сигнала
+        filt_sig_fft, filt_fft_freq, filt_lim = get_fft_signal(number, fs, filtered)
+        get_plot(x=filt_fft_freq[:filt_lim], y=filt_sig_fft[:filt_lim], x_label='Frequency',
+                  y_label='Amplitude', title='FILTERED SPECTRUM',
+                  show=True, save=False)

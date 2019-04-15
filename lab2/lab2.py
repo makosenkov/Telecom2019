@@ -9,6 +9,7 @@ def position(correlations, sinc_package):
         if sum(correlations[i:i + 3]) == sum(sinc_package):
             return i + 1
 
+
 def get_plot(x, y, x_label, y_label, title, show, save):
     plt.figure()
     plt.xlabel(x_label)
@@ -20,6 +21,7 @@ def get_plot(x, y, x_label, y_label, title, show, save):
         plt.show()
     if save:
         plt.savefig(title + '.png')
+
 
 def package():
     sinc_package = np.array([1, 0, 1], dtype=int)
@@ -55,11 +57,11 @@ def get_triangle():
     # график треугольного сигнала
     get_plot(x=t[:lim], y=sig[:lim], x_label='Time',
              y_label='Amplitude', title='Triangle signal',
-             show=True, save=False)
+             show=True, save=True)
     # спектр треугольного сигнала
     get_plot(x=fft_freq[:lim], y=sig_fft[:lim], x_label='Frequency',
              y_label='Amplitude', title='Triangle spectrum',
-             show=True, save=False)
+             show=True, save=True)
 
 
 if __name__ == '__main__':
