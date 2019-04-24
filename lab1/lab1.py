@@ -3,7 +3,7 @@ import numpy as np
 
 
 def get_plot(x, y, x_label, y_label, title, show, save):
-    plt.figure()
+    #plt.figure()
     plt.xlabel(x_label)
     plt.ylabel(y_label)
     plt.title(title)
