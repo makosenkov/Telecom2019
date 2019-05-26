@@ -18,24 +18,10 @@ def get_plot(x, y, x_label, y_label, title, show, save, close):
         plt.close()
 
 
-
 # синусоидальный сигнал
 def sin_signal(time, frequency, amplit):
     sig = amplit * np.sin(2 * np.pi * frequency * time)
     return sig
-
-
-# импульсный сигнал
-def imp_signal(time, frequency, amplit):
-    sig = amplit * np.sign(sin_signal(time, frequency, amplit))
-    return sig
-
-
-# треугольный сигнал
-def triangle_signal(time, frequency, amplit):
-    sig = signal.sawtooth(amplit * np.pi * frequency * time)
-    return sig
-
 
 def get_fft_signal(num, sampling, sig):
     # преобразование Фурье
@@ -52,9 +38,7 @@ if __name__ == '__main__':
     t = np.arange(0, number / fs, 1 / fs)
     freq = 20
     amplitude = 1
-    sig_array = [sin_signal(t, freq, amplitude),
-                 imp_signal(t, freq, amplitude),
-                 triangle_signal(t, freq, amplitude)]
+    sig_array = [sin_signal(t, freq, amplitude)]
     for input_signal in sig_array:
         sig_fft, fft_freq, lim = get_fft_signal(number, fs, input_signal)
         # добавляем шум

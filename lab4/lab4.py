@@ -1,8 +1,8 @@
 import matplotlib.pyplot as plt
 import numpy as np
 
+
 def get_plot(x, y, x_label, y_label, title, show, save, close):
-    #plt.figure()
     plt.xlabel(x_label)
     plt.ylabel(y_label)
     plt.title(title)
@@ -37,18 +37,23 @@ def plot_am(t, message_signal, modulated):
 
 def signal_synthesis():
     fs = 2000
-    number = 8192
+    number = 4096
     t = np.arange(0, number / fs, 1 / fs)
     message_freq = 20
     amplitude = 1
-    # синусоидальный сигнал
+    # исходный сигнал
     message_signal = amplitude * np.sin(2 * np.pi * message_freq * t)
     carrier_freq = 500
+    # M < 1
+    carrier_signal = 0.5 * np.cos(2 * np.pi * carrier_freq * t)
+    modulated = message_signal * carrier_signal
+    plot_am(t, message_signal, modulated)
+    # M > 1
     carrier_signal = 2 * np.cos(2 * np.pi * carrier_freq * t)
     modulated = message_signal * carrier_signal
     plot_am(t, message_signal, modulated)
-
-    carrier_signal = 2 * np.sin(2 * np.pi * carrier_freq * t)
+    # M = 1
+    carrier_signal = np.cos(2 * np.pi * carrier_freq * t)
     modulated = message_signal * carrier_signal
     plot_am(t, message_signal, modulated)
 
